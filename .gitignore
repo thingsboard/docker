@@ -1,0 +1,10 @@
+*.toDelete
+output/**
+*.class
+*~
+*.iml
+*/.idea/**
+.idea/**
+.idea
+target/
+**/target
