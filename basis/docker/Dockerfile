@@ -16,7 +16,15 @@
 
 FROM debian:stretch
 
-COPY add-user-and-group.sh /tmp/
-
-RUN chmod a+x /tmp/*.sh \
-    && /tmp/add-user-and-group.sh
+RUN addgroup --system ${pkg.user} \
+             --gid=799 \
+    && adduser --quiet \
+            --system \
+            --uid=799 \
+            --ingroup ${pkg.user} \
+            --quiet \
+            --disabled-login \
+            --disabled-password \
+            --no-create-home \
+            -gecos "Thingsboard application" \
+            ${pkg.user}
