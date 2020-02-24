@@ -30,7 +30,7 @@
     <properties>
         <main.dir>${basedir}</main.dir>
         <pkg.user>thingsboard</pkg.user>
-        <docker.repo>volodymyrbabak</docker.repo>
+        <docker.repo>thingsboard</docker.repo>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
