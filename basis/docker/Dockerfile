@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM debian:stretch
+FROM buildpack-deps:stretch-scm
 
 RUN addgroup --system ${pkg.user} \
              --gid=799 \

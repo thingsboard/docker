@@ -30,12 +30,13 @@
     <properties>
         <main.dir>${basedir}</main.dir>
         <pkg.user>thingsboard</pkg.user>
-        <docker.repo>thingsboard</docker.repo>
+        <docker.repo>volodymyrbabak</docker.repo>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <modules>
         <module>basis</module>
+        <module>openjdk8</module>
     </modules>
 
     <build>
