@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.thingsboard</groupId>
     <artifactId>docker</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.2.0</version>
     <packaging>pom</packaging>
 
     <name>ThingsBoard Base Docker images</name>
@@ -30,12 +30,12 @@
     <properties>
         <main.dir>${basedir}</main.dir>
         <pkg.user>thingsboard</pkg.user>
-        <docker.repo>volodymyrbabak</docker.repo>
+        <docker.repo>thingsboard</docker.repo>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <modules>
-        <module>basis</module>
+        <module>base</module>
         <module>openjdk8</module>
     </modules>
 

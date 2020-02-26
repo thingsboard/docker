@@ -14,8 +14,7 @@
 # limitations under the License.
 #
 
-FROM volodymyrbabak/basis
-
+FROM thingsboard/base
 
 #
 # NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
