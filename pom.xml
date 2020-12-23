@@ -37,6 +37,7 @@
     <modules>
         <module>base</module>
         <module>openjdk8</module>
+        <module>openjdk11</module>
     </modules>
 
     <build>
