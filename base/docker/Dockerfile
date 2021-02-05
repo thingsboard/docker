@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM buildpack-deps:stretch-scm
+FROM buildpack-deps:buster-scm
 
 RUN addgroup --system ${pkg.user} \
              --gid=799 \

@@ -23,16 +23,16 @@
         <version>1.3.0</version>
         <artifactId>docker</artifactId>
     </parent>
-    <artifactId>openjdk8</artifactId>
+    <artifactId>openjdk11</artifactId>
     <packaging>pom</packaging>
 
-    <name>ThingsBoard Open JDK 8 Image</name>
+    <name>ThingsBoard Open JDK 11 Image</name>
     <url>https://thingsboard.io</url>
-    <description>ThingsBoard Open JDK 8 Image</description>
+    <description>ThingsBoard Open JDK 11 Image</description>
 
     <properties>
         <main.dir>${basedir}/..</main.dir>
-        <docker.name>openjdk8</docker.name>
+        <docker.name>openjdk11</docker.name>
     </properties>
 
     <build>
