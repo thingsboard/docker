@@ -15,44 +15,63 @@
 #
 
 # haproxy2.2.11 with certbot
-FROM ubuntu:16.04
+FROM alpine:3.12
 
-RUN apt-get update && apt-get install -y libssl1.0.0 libpcre3 iproute2 --no-install-recommends && rm -rf /var/lib/apt/lists/*
-
-# Setup HAProxy
 ENV HAPROXY_MAJOR 2.2
-ENV HAPROXY_VERSION 2.2.11
-RUN buildDeps='curl gcc libc6-dev libpcre3-dev libssl-dev make' \
-  && set -x \
-  && apt-get update && apt-get install -y $buildDeps --no-install-recommends && rm -rf /var/lib/apt/lists/* \
-  && curl -SL "http://www.haproxy.org/download/${HAPROXY_MAJOR}/src/haproxy-${HAPROXY_VERSION}.tar.gz" -o haproxy.tar.gz \
-  && mkdir -p /usr/src/haproxy \
-  && tar -xzf haproxy.tar.gz -C /usr/src/haproxy --strip-components=1 \
-  && rm haproxy.tar.gz \
-  && make -C /usr/src/haproxy \
-    TARGET=linux-glibc \
-    USE_PCRE=1 PCREDIR= \
-    USE_OPENSSL=1 \
-    USE_ZLIB=1 \
-    all \
-    install-bin \
-  && mkdir -p /config \
-  && mkdir -p /usr/local/etc/haproxy \
-  && cp -R /usr/src/haproxy/examples/errorfiles /usr/local/etc/haproxy/errors \
-  && rm -rf /usr/src/haproxy \
-  && apt-get purge -y --auto-remove $buildDeps
+ENV HAPROXY_VERSION 2.2.12
 
-# Install Supervisor, cron, libnl-utils, net-tools, iptables
-RUN apt-get update && apt-get install -y supervisor cron libnl-utils net-tools iptables && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN set -x \
+    \
+    &&  apk add --no-cache --virtual .build-deps \
+    ca-certificates \
+    gcc \
+    libc-dev \
+    linux-headers \
+    lua5.3-dev \
+    make \
+    openssl \
+    openssl-dev \
+    pcre2-dev \
+    readline-dev \
+    tar \
+    zlib-dev \
+    # install HAProxy
+    && wget -O haproxy.tar.gz "http://www.haproxy.org/download/${HAPROXY_MAJOR}/src/haproxy-${HAPROXY_VERSION}.tar.gz" \
+    && mkdir -p /usr/src/haproxy \
+    && tar -xzf haproxy.tar.gz -C /usr/src/haproxy --strip-components=1  \
+    && rm haproxy.tar.gz \
+    && make -C /usr/src/haproxy -j"$(nproc)" TARGET=linux-musl CPU=generic USE_PCRE2=1 USE_PCRE2_JIT=1 USE_REGPARM=1 USE_OPENSSL=1 \
+                                USE_ZLIB=1 USE_TFO=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 \
+                                USE_LUA=1 LUA_LIB=/usr/lib/lua5.3 LUA_INC=/usr/include/lua5.3 \
+                                EXTRA_OBJS="contrib/prometheus-exporter/service-prometheus.o" \
+                                all  \
+    && make -C /usr/src/haproxy TARGET=linux2628 install-bin install-man  \
+    && mkdir -p /usr/local/etc/haproxy \
+    && cp -R /usr/src/haproxy/examples/errorfiles /usr/local/etc/haproxy/errors \
+    && rm -rf /usr/src/haproxy  \
+    && runDeps="$( \
+    scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
+      | tr ',' '\n' \
+      | sort -u \
+      | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+  )" \
+  && apk add --virtual .haproxy-rundeps $runDeps \
+  && apk del .build-deps \
+  && apk add --no-cache openssl zlib lua5.3-libs pcre2
+
+# Install certbot, supervisor, libnl-utils, net-tools, iptables
+RUN apk add --no-cache --update \
+    supervisor \
+    libnl3-cli \
+    net-tools \
+    iproute2 \
+    certbot \
+    openssl \
+  && rm -rf /var/cache/apk/*
 
 # Setup Supervisor
 RUN mkdir -p /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Install Certbot
-RUN apt-get update && apt-get install -y certbot && \
-  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Setup Certbot
 RUN mkdir -p /usr/local/etc/haproxy/certs.d
@@ -75,9 +94,6 @@ RUN chmod +x /start.sh
 
 EXPOSE 80 443
 VOLUME ["/config/", "/etc/letsencrypt/", "/usr/local/etc/haproxy/certs.d/"]
-
-# Enable FORCE_HTTPS_REDIRECT
-RUN echo "FORCE_HTTPS_REDIRECT=true" > /etc/default/haproxy
 
 # Start
 CMD ["/start.sh"]
