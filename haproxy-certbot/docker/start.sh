@@ -16,8 +16,6 @@
 #
 
 
-export FORCE_HTTPS_REDIRECT=true
-
 set -e
 
 HA_PROXY_DIR=/usr/local/etc/haproxy
