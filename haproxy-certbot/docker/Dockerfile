@@ -67,7 +67,6 @@ RUN apk add --no-cache --update \
     iproute2 \
     certbot \
     openssl \
-    perl \
   && rm -rf /var/cache/apk/*
 
 # Setup Supervisor
