@@ -8,4 +8,4 @@
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-0 */12 * * * test -x /usr/bin/certbot && sleep $(expr $RANDOM % 1)s && certbot -q renew && haproxy-refresh
+0 */12 * * * test -x /usr/bin/certbot && sleep $(expr $RANDOM % 3600)s && certbot -q renew && haproxy-refresh
