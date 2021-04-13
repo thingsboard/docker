@@ -36,6 +36,7 @@ RUN { \
     && chmod +x /usr/local/bin/docker-java-home
 # do some fancy footwork to create a JAVA_HOME that's cross-architecture-safe
 RUN ln -svT "/usr/lib/jvm/java-11-openjdk-$(dpkg --print-architecture)" /docker-java-home
+RUN mkdir -p /usr/share/man/man1
 ENV JAVA_HOME /docker-java-home
 ENV JAVA_VERSION 11.0.9.1
 ENV JAVA_DEBIAN_VERSION 11.0.9.1+1-1~deb10u2

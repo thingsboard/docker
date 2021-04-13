@@ -14,7 +14,11 @@
 # limitations under the License.
 #
 
-FROM buildpack-deps:buster-scm
+FROM debian:buster-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    procps \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN addgroup --system ${pkg.user} \
              --gid=799 \
