@@ -14,14 +14,13 @@
 # limitations under the License.
 #
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN addgroup --system ${pkg.user} \
-             --gid=799 \
+    && rm -rf /var/lib/apt/lists/* \
+    && addgroup --system ${pkg.user} \
+            --gid=799 \
     && adduser --quiet \
             --system \
             --uid=799 \

@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.thingsboard</groupId>
     <artifactId>docker</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
     <packaging>pom</packaging>
 
     <name>ThingsBoard Base Docker images</name>
@@ -31,15 +31,80 @@
         <main.dir>${basedir}</main.dir>
         <pkg.user>thingsboard</pkg.user>
         <docker.repo>thingsboard</docker.repo>
+        <dockerfile.skip>true</dockerfile.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
     </properties>
 
     <modules>
         <module>base</module>
-        <module>openjdk8</module>
+        <!--module>openjdk8</module-->
         <module>openjdk11</module>
         <module>haproxy-certbot</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>push-docker-amd-arm-images</id>
+            <activation>
+                <property>
+                    <name>push-docker-amd-arm-images</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>push-latest-docker-amd-arm-images</id>
+                                <phase>${docker.push-arm-amd-image.phase}</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <workingDirectory>${project.build.directory}</workingDirectory>
+                                    <arguments>
+                                        <argument>buildx</argument>
+                                        <argument>build</argument>
+                                        <argument>-t</argument>
+                                        <argument>${docker.repo}/${docker.name}:latest</argument>
+                                        <argument>--platform=linux/amd64,linux/arm64</argument>
+                                        <argument>-o</argument>
+                                        <argument>type=registry</argument>
+                                        <argument>.</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>push-version-docker-amd-arm-images</id>
+                                <phase>${docker.push-arm-amd-image.phase}</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <workingDirectory>${project.build.directory}</workingDirectory>
+                                    <arguments>
+                                        <argument>buildx</argument>
+                                        <argument>build</argument>
+                                        <argument>-t</argument>
+                                        <argument>${docker.repo}/${docker.name}:${project.version}</argument>
+                                        <argument>--platform=linux/amd64,linux/arm64</argument>
+                                        <argument>-o</argument>
+                                        <argument>type=registry</argument>
+                                        <argument>.</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <build>
         <pluginManagement>

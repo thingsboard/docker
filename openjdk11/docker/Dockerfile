@@ -16,31 +16,29 @@
 
 FROM thingsboard/base
 
+# Default to UTF-8 file.encoding
+ENV LANG C.UTF-8
+ENV JAVA_HOME /docker-java-home
+ENV JAVA_VERSION 11.0.15
+ENV JAVA_DEBIAN_VERSION 11.0.15+10-1~deb11u1
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bzip2 \
     unzip \
     xz-utils \
     apt-transport-https \
     ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
-# Default to UTF-8 file.encoding
-ENV LANG C.UTF-8
-# add a simple script that can auto-detect the appropriate JAVA_HOME value
-# based on whether the JDK or only the JRE is installed
-RUN { \
+    && rm -rf /var/lib/apt/lists/* \
+    && { \
     echo '#!/bin/sh'; \
     echo 'set -e'; \
     echo; \
     echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
     } > /usr/local/bin/docker-java-home \
-    && chmod +x /usr/local/bin/docker-java-home
-# do some fancy footwork to create a JAVA_HOME that's cross-architecture-safe
-RUN ln -svT "/usr/lib/jvm/java-11-openjdk-$(dpkg --print-architecture)" /docker-java-home
-RUN mkdir -p /usr/share/man/man1
-ENV JAVA_HOME /docker-java-home
-ENV JAVA_VERSION 11.0.12
-ENV JAVA_DEBIAN_VERSION 11.0.12+7-2~deb10u1
-RUN set -ex; \
+    && chmod +x /usr/local/bin/docker-java-home \
+    && ln -svT "/usr/lib/jvm/java-11-openjdk-$(dpkg --print-architecture)" /docker-java-home \
+    && mkdir -p /usr/share/man/man1 \
+    && set -ex; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \

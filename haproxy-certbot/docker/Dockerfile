@@ -15,7 +15,7 @@
 #
 
 # haproxy2.2.11 with certbot
-FROM alpine:3.12
+FROM alpine:3.16
 
 ENV HAPROXY_MAJOR 2.2
 ENV HAPROXY_VERSION 2.2.12
@@ -57,25 +57,23 @@ RUN set -x \
   )" \
   && apk add --virtual .haproxy-rundeps $runDeps \
   && apk del .build-deps \
-  && apk add --no-cache openssl zlib lua5.3-libs pcre2
-
-# Install certbot, supervisor, libnl-utils, net-tools, iptables
-RUN apk add --no-cache --update \
+  && apk add --no-cache openssl zlib lua5.3-libs pcre2 \
+  && apk add --no-cache --update \
     supervisor \
     libnl3-cli \
     net-tools \
     iproute2 \
     certbot \
     openssl \
-  && rm -rf /var/cache/apk/*
+  && rm -rf /var/cache/apk/* \
+  && mkdir -p /var/log/supervisor \
+  && mkdir -p /usr/local/etc/haproxy/certs.d \
+  && mkdir -p /usr/local/etc/letsencrypt
 
-# Setup Supervisor
-RUN mkdir -p /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Setup Certbot
-RUN mkdir -p /usr/local/etc/haproxy/certs.d
-RUN mkdir -p /usr/local/etc/letsencrypt
+
 COPY certbot.cron /etc/cron.d/certbot
 COPY cli.ini /usr/local/etc/letsencrypt/cli.ini
 COPY haproxy-refresh.sh /usr/bin/haproxy-refresh
@@ -83,10 +81,8 @@ COPY haproxy-restart.sh /usr/bin/haproxy-restart
 COPY haproxy-check.sh /usr/bin/haproxy-check
 COPY certbot-certonly.sh /usr/bin/certbot-certonly
 COPY certbot-renew.sh /usr/bin/certbot-renew
-RUN chmod +x /usr/bin/haproxy-refresh /usr/bin/haproxy-restart /usr/bin/haproxy-check /usr/bin/certbot-certonly /usr/bin/certbot-renew
-
-# Setup cron job to renew certificate
-RUN crontab /etc/cron.d/certbot
+RUN chmod +x /usr/bin/haproxy-refresh /usr/bin/haproxy-restart /usr/bin/haproxy-check /usr/bin/certbot-certonly /usr/bin/certbot-renew \
+    && crontab /etc/cron.d/certbot
 
 # Add startup script
 COPY start.sh /start.sh

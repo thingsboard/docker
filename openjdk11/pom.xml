@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.thingsboard</groupId>
-        <version>1.5.0</version>
+        <version>1.6.0</version>
         <artifactId>docker</artifactId>
     </parent>
     <artifactId>openjdk11</artifactId>
@@ -33,6 +33,7 @@
     <properties>
         <main.dir>${basedir}/..</main.dir>
         <docker.name>openjdk11</docker.name>
+        <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
     </properties>
 
     <build>
@@ -70,6 +71,7 @@
                             <goal>build</goal>
                         </goals>
                         <configuration>
+                            <skip>${dockerfile.skip}</skip>
                             <repository>${docker.repo}/${docker.name}</repository>
                             <verbose>true</verbose>
                             <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
@@ -83,6 +85,7 @@
                             <goal>tag</goal>
                         </goals>
                         <configuration>
+                            <skip>${dockerfile.skip}</skip>
                             <repository>${docker.repo}/${docker.name}</repository>
                             <tag>${project.version}</tag>
                         </configuration>
