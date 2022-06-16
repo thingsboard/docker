@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM thingsboard/base
+FROM thingsboard/base:${debian.codename}
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8

@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM debian:bullseye-slim
+FROM debian:${debian.codename}
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \

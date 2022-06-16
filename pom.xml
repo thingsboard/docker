@@ -31,9 +31,12 @@
         <main.dir>${basedir}</main.dir>
         <pkg.user>thingsboard</pkg.user>
         <docker.repo>thingsboard</docker.repo>
+        <debian.codename>bullseye-slim</debian.codename>
         <dockerfile.skip>true</dockerfile.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
+        <docker.push-arm-amd-image-latest.phase>none</docker.push-arm-amd-image-latest.phase>
+        <docker.push-arm-amd-image-debian-codename.phase>none</docker.push-arm-amd-image-debian-codename.phase>
     </properties>
 
     <modules>
@@ -59,7 +62,7 @@
                         <executions>
                             <execution>
                                 <id>push-latest-docker-amd-arm-images</id>
-                                <phase>${docker.push-arm-amd-image.phase}</phase>
+                                <phase>${docker.push-arm-amd-image-latest.phase}</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
@@ -92,6 +95,27 @@
                                         <argument>build</argument>
                                         <argument>-t</argument>
                                         <argument>${docker.repo}/${docker.name}:${project.version}</argument>
+                                        <argument>--platform=linux/amd64,linux/arm64</argument>
+                                        <argument>-o</argument>
+                                        <argument>type=registry</argument>
+                                        <argument>.</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>push-debian-codename-docker-amd-arm-images</id>
+                                <phase>${docker.push-arm-amd-image-debian-codename.phase}</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <workingDirectory>${project.build.directory}</workingDirectory>
+                                    <arguments>
+                                        <argument>buildx</argument>
+                                        <argument>build</argument>
+                                        <argument>-t</argument>
+                                        <argument>${docker.repo}/${docker.name}:${debian.codename}</argument>
                                         <argument>--platform=linux/amd64,linux/arm64</argument>
                                         <argument>-o</argument>
                                         <argument>type=registry</argument>

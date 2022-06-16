@@ -37,6 +37,7 @@
         <main.dir>${basedir}/..</main.dir>
         <docker.name>haproxy-certbot</docker.name>
         <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
+        <docker.push-arm-amd-image-latest.phase>pre-integration-test</docker.push-arm-amd-image-latest.phase>
     </properties>
 
     <build>

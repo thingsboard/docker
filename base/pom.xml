@@ -34,6 +34,7 @@
         <main.dir>${basedir}/..</main.dir>
         <docker.name>base</docker.name>
         <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
+        <docker.push-arm-amd-image-debian-codename.phase>pre-integration-test</docker.push-arm-amd-image-debian-codename.phase>
     </properties>
 
     <build>
