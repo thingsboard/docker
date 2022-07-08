@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM debian:${debian.codename}
+FROM node:${node.version}-${debian.codename}
 
 RUN apt-get update \
     && apt-get upgrade --yes \
@@ -23,15 +23,3 @@ RUN apt-get update \
     procps \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && addgroup --system ${pkg.user} \
-            --gid=799 \
-    && adduser --quiet \
-            --system \
-            --uid=799 \
-            --ingroup ${pkg.user} \
-            --quiet \
-            --disabled-login \
-            --disabled-password \
-            --no-create-home \
-            -gecos "Thingsboard application" \
-            ${pkg.user}
