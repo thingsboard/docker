@@ -23,9 +23,6 @@ ENV JAVA_VERSION 11.0.15
 ENV JAVA_DEBIAN_VERSION 11.0.15+10-1~deb11u1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    bzip2 \
-    unzip \
-    xz-utils \
     apt-transport-https \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/* \
