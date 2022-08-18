@@ -32,7 +32,7 @@
         <pkg.user>thingsboard</pkg.user>
         <docker.repo>thingsboard</docker.repo>
         <debian.codename>bullseye-slim</debian.codename>
-        <node.version>16.15.1</node.version>
+        <node.version>16.17.0</node.version>
         <dockerfile.skip>true</dockerfile.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
