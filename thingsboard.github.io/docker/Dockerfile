@@ -1,17 +1,33 @@
-# FROM debian:10.13
+#
+# Copyright © 2016-2020 The Thingsboard Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+
 FROM ruby:3.1
 
 RUN apt-get update \
     && apt-get upgrade --yes \
     && apt-get autoremove \
     && apt-get install -y --no-install-recommends \
-       procps software-properties-common make g++\
+       procps software-properties-common make g++ graphicsmagick-imagemagick-compat\
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && gem install github-pages jekyll
+    && gem install github-pages jekyll webrick
 
 WORKDIR /thingsboard.github.io/
 
 EXPOSE 4000
 
-CMD bundle install && bundle add webrick && ./restart.sh
+CMD bundle install && ./restart.sh
