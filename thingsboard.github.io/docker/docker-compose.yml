@@ -1,0 +1,9 @@
+version: '3.1'
+services:
+  tb_github_io:
+    restart: always
+    image: "THINGSBOARD_GITHUB_IO_IMAGE"
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./thingsboard.github.io:/thingsboard.github.io
