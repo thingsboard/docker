@@ -11,11 +11,7 @@ RUN apt-get update \
     && gem install github-pages jekyll
 
 WORKDIR /thingsboard.github.io/
-COPY ./thingsboard.github.io/. .
-
-RUN bundle install \
-    && bundle add webrick
 
 EXPOSE 4000
 
-CMD ["./restart.sh"]
+CMD bundle install && bundle add webrick && ./restart.sh
