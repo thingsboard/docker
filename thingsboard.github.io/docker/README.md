@@ -39,7 +39,7 @@ To start the docker container with docker-compose, run the command:
 docker-compose up
 ```
 
-In about 2 minutes (depends on PC performance) your copy of the site will be viewable for viewing at: http://localhost:4000
+In about 2 minutes (depends on PC performance) your copy of the site will be available for viewing at: http://localhost:4000
 
 ### Image preview generator in docker
 
