@@ -27,7 +27,7 @@ git clone https://github.com/thingsboard/thingsboard.github.io.git website
 Put the site contents and the docker-compose file in the same directory:
 
 ```bash
-mkdir thingsboard_website && cd $_
+mkdir tb_docs && cd $_
 git clone https://github.com/thingsboard/thingsboard.github.io.git website
 
 cat <<EOT | sudo tee docker-compose.yml
