@@ -28,11 +28,6 @@ services:
 EOT
 ```
 
-Execute this command to add webrick for jekyll:
-```bash
-docker-compose run --no-deps --rm thingsboard_github_io bundle add webrick
-```
-
 To start the docker container with docker-compose, run the command:
 
 ```bash
