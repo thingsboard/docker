@@ -19,8 +19,8 @@ services:
   thingsboard_website:
     container_name: thingsboard_website
     restart: always
-    image: "THINGSBOARD_GITHUB_IO_IMAGE"
+    image: "thingsboard/website"
     ports:
       - "4000:4000"
     volumes:
-      - ./thingsboard.github.io:/website
+      - ./website:/website

@@ -1,6 +1,6 @@
 # thingsboard.github.io
 
-Based on [ruby:3.1](https://hub.docker.com/_/ruby). For detailed info see origin repository.
+Based on [ruby:2.7.7](https://hub.docker.com/_/ruby). For detailed info see origin repository.
 
 ## Deployment of the site in docker
 
