@@ -23,16 +23,16 @@
         <version>1.6.0</version>
         <artifactId>docker</artifactId>
     </parent>
-    <artifactId>thingsboard.github.io</artifactId>
+    <artifactId>website</artifactId>
     <packaging>pom</packaging>
 
-    <name>ThingsBoard thingsboard.github.io Image</name>
+    <name>ThingsBoard Website Image</name>
     <url>https://thingsboard.io</url>
-    <description>ThingsBoard thingsboard.github.io Image</description>
+    <description>ThingsBoard Website Image</description>
 
     <properties>
         <main.dir>${basedir}/..</main.dir>
-        <docker.name>thingsboard.github.io</docker.name>
+        <docker.name>website</docker.name>
         <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-debian-codename.phase>pre-integration-test</docker.push-arm-amd-image-debian-codename.phase>
     </properties>

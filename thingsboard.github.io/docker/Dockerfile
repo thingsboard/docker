@@ -26,7 +26,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && gem install github-pages jekyll webrick
 
-WORKDIR /thingsboard.github.io/
+WORKDIR /website/
 
 EXPOSE 4000
 

@@ -47,7 +47,7 @@
         <module>node</module>
         <module>openjdk11</module>
         <module>haproxy-certbot</module>
-        <module>thingsboard.github.io</module>
+        <module>website</module>
     </modules>
 
     <profiles>

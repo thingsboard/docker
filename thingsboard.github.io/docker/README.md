@@ -17,19 +17,19 @@ git clone https://github.com/thingsboard/thingsboard.github.io.git
 cat <<EOT | sudo tee docker-compose.yml
 version: '3.1'
 services:
-  tb_github_io:
-    container_name: thingsboard_github_io
+  thingsboard_website:
+    container_name: thingsboard_website
     restart: always
     image: "THINGSBOARD_GITHUB_IO_IMAGE"
     ports:
       - "4000:4000"
     volumes:
-      - ./thingsboard.github.io:/thingsboard.github.io
+      - ./thingsboard.github.io:/website
 EOT
 ```
 
 Execute this command to add webrick for jekyll:
-```
+```bash
 docker-compose run --no-deps --rm thingsboard_github_io bundle add webrick
 ```
 

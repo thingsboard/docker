@@ -16,11 +16,11 @@
 
 version: '3.1'
 services:
-  thingsboard_github_io:
-    container_name: thingsboard_github_io
+  thingsboard_website:
+    container_name: thingsboard_website
     restart: always
     image: "THINGSBOARD_GITHUB_IO_IMAGE"
     ports:
       - "4000:4000"
     volumes:
-      - ./thingsboard.github.io:/thingsboard.github.io
+      - ./thingsboard.github.io:/website
