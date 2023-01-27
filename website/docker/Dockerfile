@@ -14,9 +14,7 @@
 # limitations under the License.
 #
 
-
 FROM ruby:2.7.7
-
 
 RUN apt-get update \
     && apt-get upgrade --yes \
