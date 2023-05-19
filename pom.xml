@@ -32,7 +32,6 @@
         <pkg.user>thingsboard</pkg.user>
         <docker.repo>thingsboard</docker.repo>
         <debian.codename>bullseye-slim</debian.codename>
-        <node.version>16.17.0</node.version>
         <dockerfile.skip>true</dockerfile.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
@@ -43,9 +42,9 @@
 
     <modules>
         <module>base</module>
-        <!--module>openjdk8</module-->
         <module>node</module>
         <module>openjdk11</module>
+        <module>openjdk17</module>
         <module>haproxy-certbot</module>
         <module>website</module>
     </modules>
