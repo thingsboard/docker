@@ -47,6 +47,7 @@
         <module>openjdk17</module>
         <module>haproxy-certbot</module>
         <module>website</module>
+        <module>toolbox</module>
     </modules>
 
     <profiles>
