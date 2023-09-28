@@ -40,6 +40,8 @@
         <curl.apk.version>8.0.1-r0</curl.apk.version>
         <java.apk.version>11.0.14_p9-r0</java.apk.version>
         <cqlsh.pip.version>6.1.2</cqlsh.pip.version>
+        <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
+        <docker.push-arm-amd-image-debian-codename.phase>pre-integration-test</docker.push-arm-amd-image-debian-codename.phase>
     </properties>
 
     <build>
