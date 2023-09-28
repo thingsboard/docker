@@ -15,11 +15,10 @@
 #
 
 FROM alpine:${alpine.version}
-RUN apk add --no-cache postgresql-client=${psql.apk.version}
-RUN apk add --no-cache py3-pip=${pip.apk.version}
-RUN apk add --no-cache bash=${bash.apk.version}
-RUN apk add --no-cache curl=${curl.apk.version}
-RUN apk add --no-cache openjdk11=${java.apk.version}
-RUN pip install cqlsh==${cqlsh.pip.version}
+RUN apk add --no-cache postgresql-client
+RUN apk add --no-cache py3-pip
+RUN apk add --no-cache bash
+RUN apk add --no-cache curl
+RUN pip install cqlsh
 WORKDIR scripts
 COPY *.sh /scripts/

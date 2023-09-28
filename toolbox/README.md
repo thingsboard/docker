@@ -16,7 +16,6 @@ This toolbox contains a list of popular and commonly use tools/clients to help r
 * bash
 * curl
 * cqlsh
-* openjdk11
 
 ## How to use
 
