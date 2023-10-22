@@ -31,7 +31,7 @@
         <main.dir>${basedir}</main.dir>
         <pkg.user>thingsboard</pkg.user>
         <docker.repo>thingsboard</docker.repo>
-        <debian.codename>bullseye-slim</debian.codename>
+        <debian.codename>bookworm-slim</debian.codename>
         <dockerfile.skip>true</dockerfile.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
