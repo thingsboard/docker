@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+# A newer bookworm-slim is not support Java 11 by default
 FROM thingsboard/base:${debian.codename}
 
 # Default to UTF-8 file.encoding

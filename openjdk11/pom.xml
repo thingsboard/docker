@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.thingsboard</groupId>
-        <version>1.6.0</version>
+        <version>1.7.0</version>
         <artifactId>docker</artifactId>
     </parent>
     <artifactId>openjdk11</artifactId>
@@ -33,6 +33,7 @@
     <properties>
         <main.dir>${basedir}/..</main.dir>
         <docker.name>openjdk11</docker.name>
+        <debian.codename>bullseye-slim</debian.codename> <!-- Override and freeze Debian version with the latest release that supports Java 11 -->
         <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-debian-codename.phase>pre-integration-test</docker.push-arm-amd-image-debian-codename.phase>
     </properties>
@@ -89,6 +90,18 @@
                             <skip>${dockerfile.skip}</skip>
                             <repository>${docker.repo}/${docker.name}</repository>
                             <tag>${project.version}</tag>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>tag-debian-codename-docker-image</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${dockerfile.skip}</skip>
+                            <repository>${docker.repo}/${docker.name}</repository>
+                            <tag>${debian.codename}</tag>
                         </configuration>
                     </execution>
                 </executions>
