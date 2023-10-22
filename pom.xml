@@ -36,6 +36,7 @@
         <docker.cache>--no-cache</docker.cache>
         <docker.pull>--pull</docker.pull>
         <dockerfile.skip>true</dockerfile.skip>
+        <node.version>16.20.2</node.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-latest.phase>none</docker.push-arm-amd-image-latest.phase>
