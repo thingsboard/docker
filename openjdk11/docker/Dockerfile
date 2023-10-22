@@ -42,6 +42,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openjdk-11-jdk="$JAVA_DEBIAN_VERSION" \
     ; \
     rm -rf /var/lib/apt/lists/*; \
+# expire resolved DNS in 60 sec
+    echo 'networkaddress.cache.ttl=60' >> /etc/java-11-openjdk/security/java.security \
     \
 # verify that "docker-java-home" returns what we expect
     [ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ]; \
