@@ -34,4 +34,6 @@ RUN apt-get update \
             --disabled-password \
             --no-create-home \
             -gecos "Thingsboard application" \
-            ${pkg.user}
+            ${pkg.user} \
+    && rm -rf /var/log/* \
+    && chmod -R g+rwX /var/log
