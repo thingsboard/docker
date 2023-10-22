@@ -137,6 +137,17 @@
                                     <repository>${docker.repo}/${docker.name}</repository>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>push-haproxy-alpine-version-docker-image</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <tag>${haproxy.version}-alpine${alpine.version}</tag>
+                                    <repository>${docker.repo}/${docker.name}</repository>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
