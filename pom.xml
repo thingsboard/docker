@@ -31,6 +31,7 @@
         <main.dir>${basedir}</main.dir>
         <pkg.user>thingsboard</pkg.user>
         <docker.repo>thingsboard</docker.repo>
+        <alpine.version>3.18</alpine.version>
         <debian.codename>bookworm-slim</debian.codename>
         <docker.output.type>registry</docker.output.type>
         <docker.cache>--no-cache</docker.cache>
