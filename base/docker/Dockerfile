@@ -18,7 +18,7 @@ FROM debian:${debian.codename}
 
 RUN apt-get update \
     && apt-get upgrade --yes \
-    && apt-get autoremove \
+    && apt-get autoremove --purge --yes \
     && apt-get install -y --no-install-recommends \
     procps \
     && apt-get clean \

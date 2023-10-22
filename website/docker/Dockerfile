@@ -18,7 +18,7 @@ FROM ruby:2.7.7
 
 RUN apt-get update \
     && apt-get upgrade --yes \
-    && apt-get autoremove \
+    && apt-get autoremove --purge --yes \
     && apt-get install -y --no-install-recommends \
         software-properties-common make g++ graphicsmagick-imagemagick-compat\
     && apt-get clean \

@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM thingsboard/base:${debian.codename}
+FROM ${docker.repo}/base:${debian.codename}
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
@@ -25,7 +25,6 @@ ENV JAVA_DEBIAN_VERSION 17.0.8+7-1~deb12u1
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
     && { \
     echo '#!/bin/sh'; \
     echo 'set -e'; \
@@ -37,10 +36,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && mkdir -p /usr/share/man/man1 \
     && set -ex; \
     \
-    apt-get update; \
+    apt list openjdk-17-jdk -a | grep openjdk-17-jdk ; \
     apt-get install -y --no-install-recommends \
     openjdk-17-jdk="$JAVA_DEBIAN_VERSION" \
     ; \
+    apt-get autoremove --purge --yes ; \
     rm -rf /var/lib/apt/lists/*; \
 # expire resolved DNS in 60 sec
     echo 'networkaddress.cache.ttl=60' >> /etc/java-17-openjdk/security/java.security \
