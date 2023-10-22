@@ -38,6 +38,7 @@
         <docker.name>haproxy-certbot</docker.name>
         <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-latest.phase>pre-integration-test</docker.push-arm-amd-image-latest.phase>
+        <docker.push-arm-amd-image-haproxy-certbot.phase>pre-integration-test</docker.push-arm-amd-image-haproxy-certbot.phase>
     </properties>
 
     <build>

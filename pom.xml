@@ -37,12 +37,14 @@
         <docker.cache>--no-cache</docker.cache>
         <docker.pull>--pull</docker.pull>
         <dockerfile.skip>true</dockerfile.skip>
+        <haproxy.version>2.2.31</haproxy.version>
         <node.version>16.20.2</node.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-latest.phase>none</docker.push-arm-amd-image-latest.phase>
         <docker.push-arm-amd-image-debian-codename.phase>none</docker.push-arm-amd-image-debian-codename.phase>
         <docker.push-arm-amd-image-node-version-debian-codename.phase>none</docker.push-arm-amd-image-node-version-debian-codename.phase>
+        <docker.push-arm-amd-image-haproxy-certbot.phase>none</docker.push-arm-amd-image-haproxy-certbot.phase>
     </properties>
 
     <modules>
@@ -148,6 +150,27 @@
                                         <argument>build</argument>
                                         <argument>-t</argument>
                                         <argument>${docker.repo}/${docker.name}:${node.version}-${debian.codename}</argument>
+                                        <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
+                                        <argument>-o</argument>
+                                        <argument>type=${docker.output.type}</argument>
+                                        <argument>.</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>push-debian-codename-haproxy-certbot-docker-amd-arm-images</id>
+                                <phase>${docker.push-arm-amd-image-haproxy-certbot.phase}</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <workingDirectory>${project.build.directory}</workingDirectory>
+                                    <arguments>
+                                        <argument>buildx</argument>
+                                        <argument>build</argument>
+                                        <argument>-t</argument>
+                                        <argument>${docker.repo}/${docker.name}:${haproxy.version}-alpine${alpine.version}</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
                                         <argument>type=${docker.output.type}</argument>
