@@ -32,6 +32,9 @@
         <pkg.user>thingsboard</pkg.user>
         <docker.repo>thingsboard</docker.repo>
         <debian.codename>bookworm-slim</debian.codename>
+        <docker.output.type>registry</docker.output.type>
+        <docker.cache>--no-cache</docker.cache>
+        <docker.pull>--pull</docker.pull>
         <dockerfile.skip>true</dockerfile.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
@@ -76,11 +79,13 @@
                                     <arguments>
                                         <argument>buildx</argument>
                                         <argument>build</argument>
+                                        <argument>${docker.cache}</argument> <!-- this is important to stay up to date with apt repos -->
+                                        <argument>${docker.pull}</argument> <!-- this is important to stay up to date with docker repo -->
                                         <argument>-t</argument>
                                         <argument>${docker.repo}/${docker.name}:latest</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
-                                        <argument>type=registry</argument>
+                                        <argument>type=${docker.output.type}</argument>
                                         <argument>.</argument>
                                     </arguments>
                                 </configuration>
@@ -101,7 +106,7 @@
                                         <argument>${docker.repo}/${docker.name}:${project.version}</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
-                                        <argument>type=registry</argument>
+                                        <argument>type=${docker.output.type}</argument>
                                         <argument>.</argument>
                                     </arguments>
                                 </configuration>
@@ -122,7 +127,7 @@
                                         <argument>${docker.repo}/${docker.name}:${debian.codename}</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
-                                        <argument>type=registry</argument>
+                                        <argument>type=${docker.output.type}</argument>
                                         <argument>.</argument>
                                     </arguments>
                                 </configuration>
@@ -143,7 +148,7 @@
                                         <argument>${docker.repo}/${docker.name}:${node.version}-${debian.codename}</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
-                                        <argument>type=registry</argument>
+                                        <argument>type=${docker.output.type}</argument>
                                         <argument>.</argument>
                                     </arguments>
                                 </configuration>
