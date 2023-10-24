@@ -18,7 +18,7 @@ FROM debian:${debian.codename}
 
 RUN apt-get update \
     && apt-get upgrade --yes \
-    && apt-get autoremove \
+    && apt-get autoremove --purge --yes \
     && apt-get install -y --no-install-recommends \
     procps \
     && apt-get clean \
@@ -34,4 +34,6 @@ RUN apt-get update \
             --disabled-password \
             --no-create-home \
             -gecos "Thingsboard application" \
-            ${pkg.user}
+            ${pkg.user} \
+    && rm -rf /var/log/* \
+    && chmod -R g+rwX /var/log

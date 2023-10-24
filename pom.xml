@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.thingsboard</groupId>
     <artifactId>docker</artifactId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
     <packaging>pom</packaging>
 
     <name>ThingsBoard Base Docker images</name>
@@ -31,13 +31,20 @@
         <main.dir>${basedir}</main.dir>
         <pkg.user>thingsboard</pkg.user>
         <docker.repo>thingsboard</docker.repo>
-        <debian.codename>bullseye-slim</debian.codename>
+        <alpine.version>3.18</alpine.version>
+        <debian.codename>bookworm-slim</debian.codename>
+        <docker.output.type>registry</docker.output.type>
+        <docker.cache>--no-cache</docker.cache>
+        <docker.pull>--pull</docker.pull>
         <dockerfile.skip>true</dockerfile.skip>
+        <haproxy.version>2.2.31</haproxy.version>
+        <node.version>16.20.2</node.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-latest.phase>none</docker.push-arm-amd-image-latest.phase>
         <docker.push-arm-amd-image-debian-codename.phase>none</docker.push-arm-amd-image-debian-codename.phase>
         <docker.push-arm-amd-image-node-version-debian-codename.phase>none</docker.push-arm-amd-image-node-version-debian-codename.phase>
+        <docker.push-arm-amd-image-haproxy-certbot.phase>none</docker.push-arm-amd-image-haproxy-certbot.phase>
     </properties>
 
     <modules>
@@ -76,11 +83,13 @@
                                     <arguments>
                                         <argument>buildx</argument>
                                         <argument>build</argument>
+                                        <argument>${docker.cache}</argument> <!-- this is important to stay up to date with apt repos -->
+                                        <argument>${docker.pull}</argument> <!-- this is important to stay up to date with docker repo -->
                                         <argument>-t</argument>
                                         <argument>${docker.repo}/${docker.name}:latest</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
-                                        <argument>type=registry</argument>
+                                        <argument>type=${docker.output.type}</argument>
                                         <argument>.</argument>
                                     </arguments>
                                 </configuration>
@@ -101,7 +110,7 @@
                                         <argument>${docker.repo}/${docker.name}:${project.version}</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
-                                        <argument>type=registry</argument>
+                                        <argument>type=${docker.output.type}</argument>
                                         <argument>.</argument>
                                     </arguments>
                                 </configuration>
@@ -122,7 +131,7 @@
                                         <argument>${docker.repo}/${docker.name}:${debian.codename}</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
-                                        <argument>type=registry</argument>
+                                        <argument>type=${docker.output.type}</argument>
                                         <argument>.</argument>
                                     </arguments>
                                 </configuration>
@@ -143,7 +152,28 @@
                                         <argument>${docker.repo}/${docker.name}:${node.version}-${debian.codename}</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
-                                        <argument>type=registry</argument>
+                                        <argument>type=${docker.output.type}</argument>
+                                        <argument>.</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>push-debian-codename-haproxy-certbot-docker-amd-arm-images</id>
+                                <phase>${docker.push-arm-amd-image-haproxy-certbot.phase}</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <workingDirectory>${project.build.directory}</workingDirectory>
+                                    <arguments>
+                                        <argument>buildx</argument>
+                                        <argument>build</argument>
+                                        <argument>-t</argument>
+                                        <argument>${docker.repo}/${docker.name}:${haproxy.version}-alpine${alpine.version}</argument>
+                                        <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
+                                        <argument>-o</argument>
+                                        <argument>type=${docker.output.type}</argument>
                                         <argument>.</argument>
                                     </arguments>
                                 </configuration>
@@ -189,6 +219,11 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.1.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

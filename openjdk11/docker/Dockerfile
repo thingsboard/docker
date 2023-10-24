@@ -14,18 +14,18 @@
 # limitations under the License.
 #
 
+# A newer bookworm-slim is not support Java 11 by default
 FROM thingsboard/base:${debian.codename}
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 ENV JAVA_HOME /docker-java-home
-ENV JAVA_VERSION 11.0.18
-ENV JAVA_DEBIAN_VERSION 11.0.18+10-1~deb11u1
+ENV JAVA_VERSION 11.0.20
+ENV JAVA_DEBIAN_VERSION 11.0.20+8-1~deb11u1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
     && { \
     echo '#!/bin/sh'; \
     echo 'set -e'; \
@@ -37,11 +37,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && mkdir -p /usr/share/man/man1 \
     && set -ex; \
     \
-    apt-get update; \
+    apt list openjdk-11-jdk -a | grep openjdk-11-jdk ; \
     apt-get install -y --no-install-recommends \
     openjdk-11-jdk="$JAVA_DEBIAN_VERSION" \
     ; \
+    apt-get autoremove --purge --yes ; \
     rm -rf /var/lib/apt/lists/*; \
+# expire resolved DNS in 60 sec
+    echo 'networkaddress.cache.ttl=60' >> /etc/java-11-openjdk/security/java.security \
     \
 # verify that "docker-java-home" returns what we expect
     [ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ]; \

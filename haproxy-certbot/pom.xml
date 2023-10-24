@@ -21,7 +21,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.thingsboard</groupId>
-        <version>1.6.0</version>
+        <version>1.7.0</version>
         <artifactId>docker</artifactId>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -38,6 +38,7 @@
         <docker.name>haproxy-certbot</docker.name>
         <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-latest.phase>pre-integration-test</docker.push-arm-amd-image-latest.phase>
+        <docker.push-arm-amd-image-haproxy-certbot.phase>pre-integration-test</docker.push-arm-amd-image-haproxy-certbot.phase>
     </properties>
 
     <build>
@@ -133,6 +134,17 @@
                                 </goals>
                                 <configuration>
                                     <tag>${project.version}</tag>
+                                    <repository>${docker.repo}/${docker.name}</repository>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>push-haproxy-alpine-version-docker-image</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <tag>${haproxy.version}-alpine${alpine.version}</tag>
                                     <repository>${docker.repo}/${docker.name}</repository>
                                 </configuration>
                             </execution>

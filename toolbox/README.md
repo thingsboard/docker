@@ -35,7 +35,7 @@ done
 Example of using in Kubernetes
 ```yaml
 - name: validate-db
-  image: thingsboard/toolbox:1.6.0
+  image: thingsboard/toolbox
   env: 
     # environment variable for internal scripts psql-validator and cqlsh-validator
     - name: RETRY_COUNT

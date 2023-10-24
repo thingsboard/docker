@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.thingsboard</groupId>
         <artifactId>docker</artifactId>
-        <version>1.6.0</version>
+        <version>1.7.0</version>
     </parent>
 
     <artifactId>toolbox</artifactId>
@@ -33,9 +33,8 @@
     <properties>
         <main.dir>${basedir}/..</main.dir>
         <docker.name>toolbox</docker.name>
-        <alpine.version>3.14</alpine.version>
         <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
-        <docker.push-arm-amd-image-debian-codename.phase>pre-integration-test</docker.push-arm-amd-image-debian-codename.phase>
+        <docker.push-arm-amd-image-latest.phase>pre-integration-test</docker.push-arm-amd-image-latest.phase>
     </properties>
 
     <build>
