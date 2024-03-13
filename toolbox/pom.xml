@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.thingsboard</groupId>
         <artifactId>docker</artifactId>
-        <version>1.7.0</version>
+        <version>1.8.0</version>
     </parent>
 
     <artifactId>toolbox</artifactId>
