@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.thingsboard</groupId>
-        <version>1.8.0</version>
+        <version>1.9.0</version>
         <artifactId>docker</artifactId>
     </parent>
     <artifactId>openjdk11</artifactId>
@@ -37,7 +37,6 @@
         <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-debian-codename.phase>pre-integration-test</docker.push-arm-amd-image-debian-codename.phase>
     </properties>
-
     <build>
         <plugins>
             <plugin>

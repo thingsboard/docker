@@ -19,8 +19,8 @@ FROM ${docker.repo}/base:${debian.codename}
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 ENV JAVA_HOME /docker-java-home
-ENV JAVA_VERSION 17.0.10
-ENV JAVA_DEBIAN_VERSION 17.0.10+7-1~deb12u1
+ENV JAVA_VERSION 17.0.11
+ENV JAVA_DEBIAN_VERSION 17.0.11+9-1~deb12u1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get autoremove --purge --yes ; \
     rm -rf /var/lib/apt/lists/*; \
 # expire resolved DNS in 60 sec
-    echo 'networkaddress.cache.ttl=60' >> /etc/java-17-openjdk/security/java.security \
+    echo 'networkaddress.cache.ttl=60' >> /etc/java-17-openjdk/security/java.security ; \
     \
 # verify that "docker-java-home" returns what we expect
     [ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ]; \

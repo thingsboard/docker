@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get autoremove --purge --yes ; \
     rm -rf /var/lib/apt/lists/*; \
 # expire resolved DNS in 60 sec
-    echo 'networkaddress.cache.ttl=60' >> /etc/java-21-openjdk/security/java.security \
+    echo 'networkaddress.cache.ttl=60' >> /etc/java-21-openjdk/security/java.security ; \
     \
 # verify that "docker-java-home" returns what we expect
     [ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ]; \
