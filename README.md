@@ -12,7 +12,7 @@ mvn clean install -P push-docker-amd-arm-images -Dnode.version=16.20.2
 
 Build specific haproxy-certbot version:
 ```bash
-mvn clean install -P push-docker-amd-arm-images -Dhaproxy.version=2.2.31
+mvn clean install -P push-docker-amd-arm-images -Dhaproxy.version=2.2.33
 ```
 
 Build to your custom repo
