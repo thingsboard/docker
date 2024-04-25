@@ -2,7 +2,10 @@
 
 Build multi-arch images and push to Docker Hub:
 ```bash
-mvn clean install -P push-docker-amd-arm-images
+docker buildx prune
+mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=bullseye-slim
+mvn clean install -P push-docker-amd-arm-images -pl base
+mvn clean install -P push-docker-amd-arm-images -pl '!base,!openjdk21'
 ```
 
 Build specific node version:
