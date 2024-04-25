@@ -15,7 +15,7 @@
 #
 
 # haproxy with certbot
-FROM haproxy:${haproxy.version}-alpine${alpine.version}
+FROM haproxy:${haproxy.version}-alpine
 
 RUN set -eux \
   && haproxy -v \

@@ -144,7 +144,7 @@
                                     <goal>push</goal>
                                 </goals>
                                 <configuration>
-                                    <tag>${haproxy.version}-alpine${alpine.version}</tag>
+                                    <tag>${haproxy.version}-alpine</tag>
                                     <repository>${docker.repo}/${docker.name}</repository>
                                 </configuration>
                             </execution>
