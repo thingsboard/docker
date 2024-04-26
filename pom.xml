@@ -171,7 +171,7 @@
                                         <argument>buildx</argument>
                                         <argument>build</argument>
                                         <argument>-t</argument>
-                                        <argument>${docker.repo}/${docker.name}:${haproxy.version}-alpine${alpine.version}</argument>
+                                        <argument>${docker.repo}/${docker.name}:${haproxy.version}-alpine</argument>
                                         <argument>--platform=linux/amd64,linux/arm64,linux/arm/v7</argument>
                                         <argument>-o</argument>
                                         <argument>type=${docker.output.type}</argument>
