@@ -23,12 +23,18 @@ RUN apt-get update \
         software-properties-common make g++ graphicsmagick-imagemagick-compat\
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && gem install bundler -v 2.0.1 \
-    && gem install 'jekyll:~>3.9.2' \
-    && gem install nokogiri -v 1.15.5 \
-    && gem install faraday-net_http -v 3.0.2 \
-    && gem install faraday -v 2.8.1 \
-    && gem install 'github-pages'
+    && gem install bundler -v 2.1.4 --no-document \
+    && gem install ffi -v 1.16.3 --no-document  \
+    && gem install public_suffix -v 5.1.1 --no-document \
+    && gem list '^jekyll$' --remote --all \
+    && gem install jekyll -v 3.9.5 --no-document \
+    && gem install nokogiri -v 1.15.5 --no-document \
+    && gem install faraday-net_http -v 3.0.2 --no-document \
+    && gem install faraday -v 2.8.1 --no-document  \
+    && gem install activesupport -v 7.1.4 --no-document \
+    && gem list '^github-pages$' --remote --all \
+    && gem install github-pages -v 231 --no-document \
+    && echo 'done'
 
 WORKDIR /website/
 
