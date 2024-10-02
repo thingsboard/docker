@@ -43,6 +43,18 @@ Build x64 locally (deprecated)
 mvn clean install -Ddockerfile.skip=false -Ddockerfile.build.noCache=true
 ```
 
+### Medusa
+
+```bash
+mvn clean install -P push-docker-amd-arm-images -pl medusa
+```
+
+### Kubectl
+
+```bash
+mvn clean install -P push-docker-amd-arm-images -pl kubectl
+```
+
 ### Multi-arch build setup
 If you failed to build or see some segmentation fault during the build, check your qemu and builder setup
 
