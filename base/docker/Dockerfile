@@ -15,12 +15,12 @@
 #
 
 FROM debian:${debian.codename}
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get upgrade --yes \
+    && apt-get install -y --no-install-recommends procps \
     && apt-get autoremove --purge --yes \
-    && apt-get install -y --no-install-recommends \
-    procps \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && addgroup --system ${pkg.user} \
@@ -32,8 +32,13 @@ RUN apt-get update \
             --quiet \
             --disabled-login \
             --disabled-password \
-            --no-create-home \
             -gecos "Thingsboard application" \
             ${pkg.user} \
     && rm -rf /var/log/* \
-    && chmod -R g+rwX /var/log
+    && chmod -R g+rwX /var/log \
+    && mkdir -p /home/${pkg.user} \
+    && chown ${pkg.user}:${pkg.user} /home/${pkg.user} \
+    && chmod -R g+rwX /home/${pkg.user} \
+    && ls -lah /home/${pkg.user}
+
+ENV HOME=/home/${pkg.user}

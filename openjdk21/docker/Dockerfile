@@ -19,8 +19,8 @@ FROM ${docker.repo}/base:${debian.codename}
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 ENV JAVA_HOME /docker-java-home
-ENV JAVA_VERSION 21.0.2
-ENV JAVA_DEBIAN_VERSION 21.0.2+13-2
+ENV JAVA_VERSION 21.0.5
+ENV JAVA_DEBIAN_VERSION 21.0.5~8ea-1
 
 # Remove when stable version is available
 RUN echo "deb http://deb.debian.org/debian trixie main" > /etc/apt/sources.list.d/trixie.list
@@ -37,21 +37,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && chmod +x /usr/local/bin/docker-java-home \
     && ln -svT "/usr/lib/jvm/java-21-openjdk-$(dpkg --print-architecture)" /docker-java-home \
     && mkdir -p /usr/share/man/man1 \
-    && set -ex; \
-    \
-    apt list openjdk-21-jdk -a | grep openjdk-21-jdk ; \
-    apt-get install -y --no-install-recommends \
+    && set -ex \
+    && apt list openjdk-21-jdk -a | grep openjdk-21-jdk \
+    && apt-get install -y --no-install-recommends \
     openjdk-21-jdk="$JAVA_DEBIAN_VERSION" \
-    ; \
-    apt-get autoremove --purge --yes ; \
-    rm -rf /var/lib/apt/lists/*; \
+    && apt-get autoremove --purge --yes \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
 # expire resolved DNS in 60 sec
-    echo 'networkaddress.cache.ttl=60' >> /etc/java-21-openjdk/security/java.security ; \
-    \
+    && echo 'networkaddress.cache.ttl=60' >> /etc/java-21-openjdk/security/java.security \
+    && tail /etc/java-21-openjdk/security/java.security \
 # verify that "docker-java-home" returns what we expect
-    [ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ]; \
-    \
+    && [ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ] \
+    && pwd \
+    && ls -lah ~ \
 # basic smoke test
-    fileEncoding="$(echo 'System.out.println(System.getProperty("file.encoding"))' | jshell -s -)"; [ "$fileEncoding" = 'UTF-8' ]; rm -rf ~/.java; \
-	javac -version; \
-	java -version
+    && fileEncoding="$(echo 'System.out.println(System.getProperty("file.encoding"))' | jshell -s -)"; [ "$fileEncoding" = 'UTF-8' ] \
+    && rm -rf ~/.java \
+	&& javac -version \
+	&& java -version
