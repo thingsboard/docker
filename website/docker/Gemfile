@@ -1,0 +1,4 @@
+# This file should by in sync with https://github.com/thingsboard/thingsboard.github.io/blob/master/Gemfile
+source "https://rubygems.org"
+
+gem "github-pages", "~> 232", group: :jekyll_plugins
