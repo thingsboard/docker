@@ -49,7 +49,7 @@ Example of using in Kubernetes
       value: "POSTGRES DATABASE"
     - name: PGUSER
       value: "POSTGRES USER"
-    - name: QUERY_TO_VALIDATE
+    - name: QUERY_TO_VALIDATE_DATA
       value: "Select SOMETHING"
     - name: PGPASSWORD
       valueFrom:
