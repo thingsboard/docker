@@ -39,6 +39,7 @@ RUN apt-get update \
     && mkdir -p /home/${pkg.user} \
     && chown ${pkg.user}:${pkg.user} /home/${pkg.user} \
     && chmod -R g+rwX /home/${pkg.user} \
+    && usermod -d /home/${pkg.user} ${pkg.user} \
     && ls -lah /home/${pkg.user}
 
 ENV HOME=/home/${pkg.user}
