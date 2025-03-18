@@ -15,8 +15,10 @@
 #
 
 FROM ruby:3.2.2
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN    apt-get update \
+    && apt-get upgrade --yes \
     && apt-get install -y --no-install-recommends \
         software-properties-common make g++ graphicsmagick-imagemagick-compat \
     && apt-get autoremove --purge --yes \
