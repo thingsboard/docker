@@ -59,6 +59,7 @@
         <module>toolbox</module>
         <module>medusa</module>
         <module>kubectl</module>
+        <module>connectivity</module>
     </modules>
 
     <profiles>

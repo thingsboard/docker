@@ -56,6 +56,12 @@ mvn clean install -P push-docker-amd-arm-images -pl medusa
 mvn clean install -P push-docker-amd-arm-images -pl kubectl
 ```
 
+### Connectivity
+
+```bash
+mvn clean install -P push-docker-amd-arm-images -pl connectivity,:coap,:mqtt -am
+```
+
 ### Multi-arch build setup
 If you failed to build or see some segmentation fault during the build, check your qemu and builder setup
 
