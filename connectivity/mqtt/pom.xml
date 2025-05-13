@@ -30,7 +30,7 @@
 	<artifactId>mqtt</artifactId>
 	<packaging>pom</packaging>
 	
-	<name>ThingsBoard Connectivity coap client</name>
+	<name>ThingsBoard Connectivity MQTT Clients</name>
 	<url>https://thingsboard.io</url>
 	
 	<properties>

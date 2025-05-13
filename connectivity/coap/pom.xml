@@ -30,7 +30,7 @@
 	<artifactId>coap</artifactId>
 	<packaging>pom</packaging>
 
-	<name>ThingsBoard Connectivity coap client</name>
+	<name>ThingsBoard Connectivity COAP Clients</name>
 	<url>https://thingsboard.io</url>
 	
 	<properties>

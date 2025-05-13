@@ -29,7 +29,7 @@
 	<artifactId>connectivity</artifactId>
 	<packaging>pom</packaging>
 
-	<name>ThingsBoard Connectivity clients</name>
+	<name>ThingsBoard Connectivity Clients</name>
 	<url>https://thingsboard.io</url>
 	
 	<properties>
