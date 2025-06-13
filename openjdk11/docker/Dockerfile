@@ -20,8 +20,8 @@ FROM thingsboard/base:${debian.codename}
 # Default to UTF-8 file.encoding
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/docker-java-home
-ENV JAVA_VERSION=11.0.26
-ENV JAVA_DEBIAN_VERSION=11.0.26+4-1~deb11u1
+ENV JAVA_VERSION=11.0.27
+ENV JAVA_DEBIAN_VERSION=11.0.27+6-1~deb11u1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
@@ -36,9 +36,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && ln -svT "/usr/lib/jvm/java-11-openjdk-$(dpkg --print-architecture)" /docker-java-home \
     && mkdir -p /usr/share/man/man1 \
     && set -ex \
-    && apt list openjdk-11-jdk -a | grep openjdk-11-jdk \
+    && apt list openjdk-11-jdk-headless -a | grep openjdk-11-jdk-headless \
     && apt-get install -y --no-install-recommends \
-    openjdk-11-jdk="$JAVA_DEBIAN_VERSION" \
+    openjdk-11-jdk-headless="$JAVA_DEBIAN_VERSION" \
     && apt-get autoremove --purge --yes \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
