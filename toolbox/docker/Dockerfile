@@ -19,6 +19,6 @@ RUN apk add --no-cache postgresql-client
 RUN apk add --no-cache py3-pip
 RUN apk add --no-cache bash
 RUN apk add --no-cache curl
-RUN pip install cqlsh
-WORKDIR scripts
+RUN pip install cqlsh --break-system-packages
+WORKDIR /scripts
 COPY *.sh /scripts/
