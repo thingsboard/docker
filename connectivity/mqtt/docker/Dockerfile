@@ -14,8 +14,38 @@
 # limitations under the License.
 #
 
-FROM efrecon/mqtt-client:2.0.11
+# Reference https://github.com/efrecon/docker-images/blob/master/mqtt-client/Dockerfile
+#ARG ALPINE_VERSION=3.14.1
+FROM alpine:${alpine.version}
 
-USER root
+ARG MOSQUITTO_VERSION=2.0.20
+ARG PACKAGE_RELEASE=0
+ARG BUILD_DATE=2025-05-16
 
-RUN apk --no-cache add curl
+# OCI Meta information
+LABEL org.opencontainers.image.authors="Emmanuel Frecon <efrecon@gmail.com>"
+LABEL org.opencontainers.image.created=${BUILD_DATE}
+LABEL org.opencontainers.image.version=${MOSQUITTO_VERSION}
+LABEL org.opencontainers.image.url="https://github.com/efrecon/docker-images"
+LABEL org.opencontainers.image.source="https://github.com/efrecon/docker-images/mqtt-client/Dockerfile"
+LABEL org.opencontainers.image.documentation="https://github.com/efrecon/docker-images/mqtt-client/README.md"
+LABEL org.opencontainers.image.licenses="BSD"
+LABEL org.opencontainers.image.title="MQTT Client"
+LABEL org.opencontainers.image.description="mosquitto clients for sending data and/or subscribing to topics"
+
+VOLUME /opt/certs
+
+RUN apk add --no-cache ca-certificates tini mosquitto-clients=${MOSQUITTO_VERSION}-r${PACKAGE_RELEASE} && \
+    /etc/ca-certificates/update.d/certhash && \
+    ln -s /usr/bin/mosquitto_pub /usr/local/bin/pub && \
+    ln -s /usr/bin/mosquitto_sub /usr/local/bin/sub && \
+    apk add --no-cache curl && \
+    mkdir -p /home/nobody && \
+    chown -R nobody:nobody /home/nobody
+
+WORKDIR /home/nobody
+ENV HOME=/home/nobody
+
+USER nobody
+
+ENTRYPOINT [ "/sbin/tini", "--" ]
