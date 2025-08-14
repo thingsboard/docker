@@ -38,7 +38,7 @@
         <docker.pull>--pull</docker.pull>
         <dockerfile.skip>true</dockerfile.skip>
         <haproxy.version>2.2.33</haproxy.version>
-        <node.version>20.18.0</node.version>
+        <node.version>20.19.4</node.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.push-arm-amd-image.phase>none</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-latest.phase>none</docker.push-arm-amd-image-latest.phase>
