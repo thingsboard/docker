@@ -28,7 +28,7 @@ echo "$(date) Building project from $VERSION_TAG ..."
 set -x
 
 # Performing the same steps as described in README.md
-docker buildx prune -f
+docker buildx prune -af
 mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=bullseye-slim
 mvn clean install -P push-docker-amd-arm-images -pl base
 mvn clean install -P push-docker-amd-arm-images -pl '!base'
