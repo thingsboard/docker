@@ -19,11 +19,8 @@ FROM ${docker.repo}/base:${debian.codename}
 # Default to UTF-8 file.encoding
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/docker-java-home
-ENV JAVA_VERSION=21.0.8
-ENV JAVA_DEBIAN_VERSION=21.0.8+9-1
-
-# Remove when stable version is available
-RUN echo "deb http://deb.debian.org/debian trixie main" > /etc/apt/sources.list.d/trixie.list
+ENV JAVA_VERSION=21.0.9
+ENV JAVA_DEBIAN_VERSION=21.0.9+10-1~deb13u1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \

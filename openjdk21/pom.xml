@@ -33,6 +33,10 @@
     <properties>
         <main.dir>${basedir}/..</main.dir>
         <docker.name>openjdk21</docker.name>
+
+        <!-- override value from parent to ensure that 'trixie-slim' (stable) is used by default because 'bookworm-slim' (oldstable) does not support JDK 21 -->
+        <debian.codename>trixie-slim</debian.codename>
+
         <docker.push-arm-amd-image.phase>pre-integration-test</docker.push-arm-amd-image.phase>
         <docker.push-arm-amd-image-debian-codename.phase>pre-integration-test</docker.push-arm-amd-image-debian-codename.phase>
     </properties>
