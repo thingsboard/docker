@@ -19,7 +19,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get upgrade --yes \
-    && apt-get install -y --no-install-recommends procps \
+    && apt-get install -y --no-install-recommends procps adduser \
     && apt-get autoremove --purge --yes \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \

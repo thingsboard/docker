@@ -54,6 +54,7 @@
         <module>openjdk11</module>
         <module>openjdk17</module>
         <module>openjdk21</module>
+        <module>openjdk25</module>
         <module>haproxy-certbot</module>
         <module>website</module>
         <module>toolbox</module>

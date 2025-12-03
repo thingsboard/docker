@@ -30,7 +30,8 @@ set -x
 # Performing the same steps as described in README.md
 docker buildx prune -af
 mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=bullseye-slim
-mvn clean install -P push-docker-amd-arm-images -pl base
+mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=trixie-slim
+mvn clean install -P push-docker-amd-arm-images -pl base # uses default Debian codename (from pom.xml's)
 mvn clean install -P push-docker-amd-arm-images -pl '!base'
 
 set +x
