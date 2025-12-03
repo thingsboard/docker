@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && ln -svT "/usr/lib/jvm/java-17-openjdk-$(dpkg --print-architecture)" /docker-java-home \
     && mkdir -p /usr/share/man/man1 \
     && set -ex \
-    && apt list openjdk-17-jdk-headless -a | grep openjdk-17-jdk-headless \
+    && apt-cache madison openjdk-17-jdk-headless \
     && apt-get install -y --no-install-recommends \
     openjdk-17-jdk-headless="$JAVA_DEBIAN_VERSION" \
     && apt-get autoremove --purge --yes \
