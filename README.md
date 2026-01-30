@@ -7,7 +7,17 @@ docker buildx prune -af
 mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=bullseye-slim
 mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=trixie-slim
 mvn clean install -P push-docker-amd-arm-images -pl base
-mvn clean install -P push-docker-amd-arm-images -pl '!base'
+mvn clean install -P push-docker-amd-arm-images -pl '!base' -T4
+```
+
+### Vulnerability scan
+
+```bash
+docker image prune -af
+docker scout cves --only-severity=critical,high thingsboard/openjdk25:trixie-slim
+docker scout cves --only-severity=critical,high thingsboard/openjdk21:trixie-slim
+docker scout cves --only-severity=critical,high thingsboard/openjdk17:bookworm-slim
+docker scout cves --only-severity=critical,high thingsboard/openjdk11:bullseye-slim
 ```
 
 Build specific node version:
