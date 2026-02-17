@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM bitnamilegacy/kubectl:1.33-debian-12
+FROM bitnamilegacy/kubectl:1.33
 
 USER root
 
