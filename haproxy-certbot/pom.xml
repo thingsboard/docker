@@ -21,7 +21,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.thingsboard</groupId>
-        <version>1.23.0</version>
+        <version>1.24.0</version>
         <artifactId>docker</artifactId>
     </parent>
     <modelVersion>4.0.0</modelVersion>
