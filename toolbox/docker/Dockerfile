@@ -14,11 +14,16 @@
 # limitations under the License.
 #
 
-FROM alpine:${alpine.version}
+FROM alpine:3.17
 RUN apk add --no-cache postgresql-client
 RUN apk add --no-cache py3-pip
 RUN apk add --no-cache bash
 RUN apk add --no-cache curl
-RUN pip install cqlsh --break-system-packages
+# --break-system-packages
+RUN pip install cqoplsh
+RUN cqlsh --version
+RUN psql --version
 WORKDIR /scripts
 COPY *.sh /scripts/
+RUN chmod +x /scripts/*.sh
+
