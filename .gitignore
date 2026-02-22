@@ -8,3 +8,4 @@ output/**
 .idea
 target/
 **/target
+.claude/
