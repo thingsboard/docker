@@ -20,7 +20,7 @@ RUN apk add --no-cache py3-pip
 RUN apk add --no-cache bash
 RUN apk add --no-cache curl
 # --break-system-packages
-RUN pip install cqoplsh
+RUN pip install cqlsh
 RUN cqlsh --version
 RUN psql --version
 WORKDIR /scripts
