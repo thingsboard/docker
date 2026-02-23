@@ -15,14 +15,22 @@
 #
 
 FROM alpine:3.17
+ARG TARGETARCH
 RUN apk add --no-cache postgresql-client
 RUN apk add --no-cache py3-pip
 RUN apk add --no-cache bash
 RUN apk add --no-cache curl
+RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache jq
 # --break-system-packages
 RUN pip install cqlsh
+RUN curl -fsSL "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${TARGETARCH}" \
+    -o /usr/local/bin/yq \
+    && chmod +x /usr/local/bin/yq
 RUN cqlsh --version
 RUN psql --version
+RUN jq --version
+RUN yq --version
 WORKDIR /scripts
 COPY *.sh /scripts/
 RUN chmod +x /scripts/*.sh

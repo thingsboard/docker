@@ -16,6 +16,9 @@ This toolbox contains a list of popular and commonly use tools/clients to help r
 * bash
 * curl
 * cqlsh
+* ca-certificates
+* jq
+* yq (mikefarah)
 
 ## How to use
 
