@@ -23,7 +23,10 @@ RUN apk add --no-cache curl
 RUN apk add --no-cache ca-certificates
 RUN apk add --no-cache jq
 # --break-system-packages
-RUN pip install cqlsh
+RUN apk add --no-cache --virtual .build-deps \
+        gcc musl-dev python3-dev libffi-dev openssl-dev libev-dev make \
+ && pip install cqlsh \
+ && apk del .build-deps
 RUN curl -fsSL "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${TARGETARCH}" \
     -o /usr/local/bin/yq \
     && chmod +x /usr/local/bin/yq
