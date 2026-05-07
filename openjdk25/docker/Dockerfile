@@ -19,8 +19,9 @@ FROM ${docker.repo}/base:${debian.codename}
 # Default to UTF-8 file.encoding
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/docker-java-home
-ENV JAVA_VERSION=25.0.2
-ENV JAVA_DEBIAN_VERSION=25.0.2+10-1~deb13u2
+ENV JAVA_VERSION=25.0.3
+# https://packages.debian.org/trixie/openjdk-25-jdk-headless
+ENV JAVA_DEBIAN_VERSION=25.0.3+9-2~deb13u1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \

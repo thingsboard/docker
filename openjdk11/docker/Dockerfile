@@ -20,8 +20,9 @@ FROM thingsboard/base:${debian.codename}
 # Default to UTF-8 file.encoding
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/docker-java-home
-ENV JAVA_VERSION=11.0.30
-ENV JAVA_DEBIAN_VERSION=11.0.30+7-1~deb11u1
+ENV JAVA_VERSION=11.0.31
+# https://packages.debian.org/bullseye/openjdk-11-jdk-headless
+ENV JAVA_DEBIAN_VERSION=11.0.31+11-1~deb11u1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \

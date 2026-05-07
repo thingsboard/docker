@@ -20,6 +20,7 @@ FROM ${docker.repo}/base:${debian.codename}
 ENV LANG=C.UTF-8
 ENV JAVA_HOME=/docker-java-home
 ENV JAVA_VERSION=17.0.19
+# https://packages.debian.org/bookworm/openjdk-17-jdk-headless
 ENV JAVA_DEBIAN_VERSION=17.0.19+10-1~deb12u2
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
