@@ -4,7 +4,6 @@ Build multi-arch images and push to Docker Hub:
 ```bash
 # do not ask user for interactive confirmation
 docker buildx prune -af
-mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=bullseye-slim
 mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=trixie-slim
 mvn clean install -P push-docker-amd-arm-images -pl base
 mvn clean install -P push-docker-amd-arm-images -pl '!base' -T4
