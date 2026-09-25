@@ -33,7 +33,7 @@ mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=bulls
 mvn clean install -P push-docker-amd-arm-images -pl base -Ddebian.codename=trixie-slim
 # Base image build below will use default Debian codename (from pom.xml's)
 mvn clean install -P push-docker-amd-arm-images -pl base
-mvn clean install -P push-docker-amd-arm-images -pl '!base'
+mvn clean install -P push-docker-amd-arm-images -pl '!base,!openjdk11,!connectivity/coap'
 
 set +x
 echo "$(date) Done. ${VERSION_TAG}"
