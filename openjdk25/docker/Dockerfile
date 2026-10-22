@@ -55,9 +55,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& javac -version \
 	&& java -version
 
-# FIXME: remove once JAVA_DEBIAN_VERSION ships tzdata 2026e; until then tzdb.dat is rebuilt from the JDK 25.0.5 GA sources
+# FIXME: remove once JAVA_DEBIAN_VERSION ships tzdata 2026e; until then tzdb.dat is rebuilt from the jdk-25.0.5+8 sources
 RUN set -ex \
-    && src=https://raw.githubusercontent.com/openjdk/jdk25u/jdk-25.0.5%2B8 \
+    && installed=$(echo 'System.out.println(java.time.zone.ZoneRulesProvider.getVersions("UTC").lastKey())' | jshell -s -) \
+    && [ -n "$installed" ] \
+    && if [ ! "$installed" \< 2026e ]; then echo "JDK already ships tzdata $installed, remove this step"; exit 1; fi \
+    && src=https://raw.githubusercontent.com/openjdk/jdk25u/fda231468e56663992785ec199a6efb8eca3cc7a \
     && zones="africa antarctica asia australasia europe northamerica southamerica backward etcetera gmt jdk11_backward" \
     && work=$(mktemp -d) && tools=$work/build/tools/tzdb && mkdir -p $tools $work/tzdata $work/classes \
     && apt-get update && dpkg --get-selections | awk '{print $1}' > $work/packages \

@@ -55,9 +55,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& javac -version \
 	&& java -version
 
-# FIXME: remove once JAVA_DEBIAN_VERSION ships tzdata 2026e; until then tzdb.dat is rebuilt from the JDK 17.0.21 GA sources
+# FIXME: remove once JAVA_DEBIAN_VERSION ships tzdata 2026e; until then tzdb.dat is rebuilt from the jdk-17.0.21+9 sources
 RUN set -ex \
-    && src=https://raw.githubusercontent.com/openjdk/jdk17u/jdk-17.0.21%2B9 \
+    && installed=$(echo 'System.out.println(java.time.zone.ZoneRulesProvider.getVersions("UTC").lastKey())' | jshell -s -) \
+    && [ -n "$installed" ] \
+    && if [ ! "$installed" \< 2026e ]; then echo "JDK already ships tzdata $installed, remove this step"; exit 1; fi \
+    && src=https://raw.githubusercontent.com/openjdk/jdk17u/e8adc958475b92b9f251145c6ce20532be16d806 \
     && zones="africa antarctica asia australasia europe northamerica southamerica backward etcetera gmt jdk11_backward" \
     && work=$(mktemp -d) && tools=$work/build/tools/tzdb && mkdir -p $tools $work/tzdata $work/classes \
     && apt-get update && dpkg --get-selections | awk '{print $1}' > $work/packages \
